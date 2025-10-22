@@ -4,18 +4,34 @@ project(AcademyScopeMobile VERSION 0.1 LANGUAGES CXX)
 
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
-find_package(Qt6 REQUIRED COMPONENTS Quick)
+find_package(Qt6 REQUIRED COMPONENTS Quick Sql)
 
 qt_standard_project_setup(REQUIRES 6.8)
 
 file(GLOB ProjectSrc
     "${CMAKE_CURRENT_SOURCE_DIR}/Src/*.cpp"
     "${CMAKE_CURRENT_SOURCE_DIR}/Src/*.hpp"
+    "${CMAKE_CURRENT_SOURCE_DIR}/Components/BackEnd/Src/*.cpp"
+    "${CMAKE_CURRENT_SOURCE_DIR}/Components/BackEnd/Src/*.hpp"
+    "${CMAKE_CURRENT_SOURCE_DIR}/Components/BackEnd/Src/Utils/*.cpp"
+    "${CMAKE_CURRENT_SOURCE_DIR}/Components/BackEnd/Src/Utils/*.hpp"
+
 )
 
-file(GLOB ProjectQML RELATIVE "${CMAKE_CURRENT_SOURCE_DIR}" CONFIGURE_DEPENDS
-    "${CMAKE_CURRENT_SOURCE_DIR}/QML/*.qml"
+file(GLOB ProjectUI RELATIVE "${CMAKE_CURRENT_SOURCE_DIR}" CONFIGURE_DEPENDS
+    "${CMAKE_CURRENT_SOURCE_DIR}/UI/*.qml"
 )
+
+set(CMAKE_AUTOUIC_SEARCH_PATHS
+    "Src"
+    "UI"
+)
+
+include_directories(src)
+include_directories(src/Util)
+include_directories(Components/BackEnd/src)
+
+
 qt_add_executable(appAcademyScopeMobile
     ${ProjectSrc}
 )
@@ -24,7 +40,7 @@ qt_add_qml_module(appAcademyScopeMobile
     URI AcademyScopeMobile
     VERSION 1.0
     QML_FILES
-        ${ProjectQML}
+        ${ProjectUI}
 )
 
 # Qt for iOS sets MACOSX_BUNDLE_GUI_IDENTIFIER automatically since Qt 6.1.
