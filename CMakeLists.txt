@@ -5,6 +5,7 @@ project(AcademyScopeMobile VERSION 0.1 LANGUAGES CXX)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
 find_package(Qt6 REQUIRED COMPONENTS Quick Sql)
+find_package(Qt6 REQUIRED COMPONENTS Core)
 
 qt_standard_project_setup(REQUIRES 6.8)
 
@@ -58,6 +59,7 @@ target_link_libraries(appAcademyScopeMobile
     PRIVATE Qt6::Quick
     Qt${QT_VERSION_MAJOR}::Sql
 )
+target_link_libraries(appAcademyScopeMobile PRIVATE Qt6::Core)
 
 include(GNUInstallDirs)
 install(TARGETS appAcademyScopeMobile
