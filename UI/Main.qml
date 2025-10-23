@@ -47,4 +47,53 @@ Window {
         y: 72
         text: qsTr("Bölüm")
     }
+    ListView {
+        id: listView
+        x: 8
+        y: 120
+        width: 337
+        height: 320
+        spacing:4
+        model: ListModel {
+            ListElement { name: "Fizik"; score: "380" }
+            ListElement { name: "Kimya"; score: "360" }
+            ListElement { name: "Biyoloji"; score: "340" }
+            ListElement { name: "Matematik"; score: "340" }
+            ListElement { name: "Bilgisayar Mühendisliği"; score: "340" }
+            ListElement { name: "Tıp"; score: "340" }
+        }
+
+        delegate: Rectangle {
+                    width: parent.width - 20   // Kenarlardan boşluk
+                    height: 65
+                    radius: 8
+                    color: "#1E1E1E"           // Satır arka planı (açık siyah)
+                    anchors.horizontalCenter: parent.horizontalCenter
+
+                    Column {
+                        anchors.fill: parent
+                        anchors.margins: 12
+
+                        Text {
+                            text: name
+                            font.pixelSize: 16
+                            color: "white"
+                            font.bold: true
+                            elide: Text.ElideRight
+                        }
+
+                        Text {
+                            text: score
+                            font.pixelSize: 13
+                            color: "#AAAAAA"
+                        }
+                    }
+
+                    MouseArea {
+                        anchors.fill: parent
+                        onClicked: console.log("Clicked:", name)
+                    }
+                }
+    }
+
 }
