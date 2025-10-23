@@ -56,6 +56,7 @@ set_target_properties(appAcademyScopeMobile PROPERTIES
 
 target_link_libraries(appAcademyScopeMobile
     PRIVATE Qt6::Quick
+    Qt${QT_VERSION_MAJOR}::Sql
 )
 
 include(GNUInstallDirs)
