@@ -19,5 +19,8 @@ int main(int argc, char *argv[])
     engine.rootContext()->setContextProperty("controller", &controller);
     engine.loadFromModule("AcademyScopeMobile", "Main");
 
+    QObject *rootObject = engine.rootObjects().first();
+    QObject *combo = rootObject->findChild<QObject*>("universityComboBox");
+    //combo->lineEdit()->setAlignment(Qt::AlignLeft);
     return app.exec();
 }

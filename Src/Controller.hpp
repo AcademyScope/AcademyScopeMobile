@@ -2,6 +2,7 @@
 
 #include <QObject>
 #include <QStringList>
+#include <BackEnd.hpp>
 
 class Controller : public QObject {
     Q_OBJECT
@@ -12,13 +13,15 @@ public:
 
     QStringList universities() const;
     QStringList departments() const;
-    Q_INVOKABLE void selectUniversity(int index);
+    Q_INVOKABLE void setUniversity(QString university);
+    Q_INVOKABLE void setDepartment(QString university);
 
 signals:
     void universitiesChanged();
     void departmentsChanged();
 
 private:
-    QStringList m_universities;
-    QStringList m_departments;
+    AcademyScopeBackEnd backEnd;
+    AcademyScopeParameters parameters;
+    void updateUniversityTable();
 };

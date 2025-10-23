@@ -1,21 +1,34 @@
 #include "Controller.hpp"
-
 #include <QDebug>
 
-Controller::Controller(QObject *parent) : QObject(parent) {
-    m_universities = {"Boğaziçi", "İTÜ", "ODTÜ"};
-    m_departments = {"Bilgisayar Mühendisliği", "Tıp", "Fizik"};
+Controller::Controller(QObject *parent) : QObject(parent), backEnd(nullptr) {
 }
 
-void Controller::selectUniversity(int index) {
-    if (index >= 0 && index < m_universities.size())
-        qDebug() << "Selected university:" << m_universities.at(index);
+void Controller::setUniversity(QString university) {
+    parameters.universityName = university;
+    qDebug() << "Selected university:" << university;
+    updateUniversityTable();
+}
+
+void Controller::setDepartment(QString department) {
+    parameters.departmentName = department;
+    qDebug() << "Selected department:" << department;
+    updateUniversityTable();
+}
+
+void Controller::updateUniversityTable() {
+
 }
 
 QStringList Controller::universities() const {
-    return m_universities;
+    QList<University> universities = backEnd.getUniversities();
+    QStringList output;
+    for(University &university : universities) {
+        output.push_back(university.name);
+    }
+    return output;
 }
 
 QStringList Controller::departments() const {
-    return m_departments;
+    return backEnd.getDepartments();
 }
